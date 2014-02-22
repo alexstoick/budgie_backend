@@ -5,7 +5,7 @@
 #   gem 'sqlite3'
 development:
   adapter: mysql2
-  database: propertyWatch
+  database: budgie_backend
   username: root
   password: root
   host: 127.0.0.1

@@ -3,7 +3,14 @@ class ReceiptsController < ApplicationController
   #GET receipts/:id
   #
   def show
-    render json:Receipt.find(params[:id])
+    r = Receipt.find(params[:id])
+    render json: r.to_json(
+      only: [ :id] ,
+      methods: [ :total ] ,
+      :include => [
+        :items => { only: [:id,:name,:category,:price] }
+      ]
+    )
   end
 
   #POST receipts
@@ -11,12 +18,32 @@ class ReceiptsController < ApplicationController
   def create
     new_receipt = Receipt.new(store_id: params[:store_id])
     new_receipt.save!
-    render json: new_receipt
+    respond_to do |format|
+      format.json new_receipt.to_json( only: [:id])
+      format.html
+    end
   end
 
   #PATCH receipts/:id
   #
   def update
+
+    item = Item.find(params[:item_id])
+
+    entry = ReceiptEntry.where(
+            item_id: params[:item_id],
+            receipt_id: params[:id]
+        ).first_or_create
+
+    render json: Receipt.find(params[:id])
+
+  end
+
+  #GET receipts/last
+  #
+  def lastReceipt
+
+    render json: Receipt.last.id
 
   end
 end

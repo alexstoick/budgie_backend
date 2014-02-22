@@ -1,4 +1,11 @@
 class ItemsController < ApplicationController
+
+  #GET items/
+  #
+  def index
+    render json: Item.all().to_json( :only => [:name,:price])
+  end
+
   #GET items/:id
   #
   def create

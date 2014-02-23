@@ -7,6 +7,7 @@ class ReceiptsController < ApplicationController
     @r = Receipt.all()
 
     respond_to do |format|
+      format.json { render json: @r.to_json( only: [:id,:created_at], methods: [:total,:receipt_day])}
       format.html
     end
 
@@ -34,7 +35,7 @@ class ReceiptsController < ApplicationController
     new_receipt = Receipt.new(store_id: params[:store_id])
     new_receipt.save!
     respond_to do |format|
-      format.json new_receipt.to_json( only: [:id])
+      format.json {render json: new_receipt.to_json( only: [:id])}
       format.html
     end
   end

@@ -13,4 +13,8 @@ class Receipt < ActiveRecord::Base
     total.round(2).to_s
   end
 
+  def receipt_day
+    Date.today - self.id
+  end
+
 end

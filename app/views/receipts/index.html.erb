@@ -1,0 +1,13 @@
+<table class="table table-striped">
+<thead>
+  <th> # </th>
+  <th> Store </th>
+  <th> Total </th>
+</thead>
+<% @r.each do |receipt| %>
+  <tr>
+    <td><%= link_to "#" + receipt.id.to_s, receipt_path(receipt) %></td>
+    <td><%= receipt.store_id %></td>
+    <td><%= receipt.total %></td>
+  </tr>
+<% end %>

@@ -1,16 +1,31 @@
 class ReceiptsController < ApplicationController
 
+  #GET receipts/
+  #
+  def index
+
+    @r = Receipt.all()
+
+    respond_to do |format|
+      format.html
+    end
+
+  end
+
   #GET receipts/:id
   #
   def show
-    r = Receipt.find(params[:id])
-    render json: r.to_json(
-      only: [ :id] ,
-      methods: [ :total ] ,
-      :include => [
-        :items => { only: [:id,:name,:category,:price] }
-      ]
-    )
+    @r = Receipt.find(params[:id])
+    respond_to do |format|
+      format.json { render json: @r.to_json(
+        only: [ :id] ,
+        methods: [ :total ] ,
+        :include => [
+          :items => { only: [:id,:name,:category,:price] }
+        ]
+      ) }
+      format.html
+    end
   end
 
   #POST receipts

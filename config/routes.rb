@@ -2,7 +2,7 @@ BudgieBackend::Application.routes.draw do
 
   match "receipts/last", to: "receipts#lastReceipt", via: :get
 
-  resources :receipts, only: [:show,:create,:update]
+  resources :receipts, only: [:index,:show,:create,:update]
   resources :items, only: [:index,:create]
 
 

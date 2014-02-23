@@ -1,2 +1,21 @@
-<h1>Receipts#show</h1>
-<p>Find me in app/views/receipts/show.html.erb</p>
+<table class="table table-striped">
+<thead>
+  <th> Name </th>
+  <th> Price </th>
+  <th> Category </th>
+</thead>
+<% @r.items.each do |item| %>
+  <tr>
+    <td><%= item.name %></td>
+    <td><%= item.price %></td>
+    <td><%= item.category %></td>
+  </tr>
+<% end %>
+</table>
+<table class="table">
+<tr>
+<td> Total </td>
+<td> <%= @r.total %> </td>
+</tr>
+
+</table>

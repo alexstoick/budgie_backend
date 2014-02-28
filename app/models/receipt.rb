@@ -2,6 +2,7 @@ class Receipt < ActiveRecord::Base
 
   has_many :receipt_entries
   has_many :items, through: :receipt_entries
+  belongs_to :table
 
   def total
     items = self.items

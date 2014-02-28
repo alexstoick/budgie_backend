@@ -62,4 +62,15 @@ class ReceiptsController < ApplicationController
     render json: Receipt.last.id
 
   end
+
+  def addItem 
+
+    puts params[:name]
+    puts params[:table]
+    item = Item.where(name: params[:name]).first_or_create
+    receipt = Table.find(params[:table]).last_receipt
+    receipt.items << item
+
+    render json: { "success" => true }
+  end
 end

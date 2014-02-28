@@ -1,9 +1,11 @@
 BudgieBackend::Application.routes.draw do
 
   match "receipts/last", to: "receipts#lastReceipt", via: :get
+  match "addItem", to: "receipts#addItem", via: :post
 
   resources :receipts, only: [:index,:show,:create,:update]
   resources :items, only: [:index,:create]
+  resources :tables, only: [:create,:show]
 
 
   # The priority is based upon order of creation: first created -> highest priority.

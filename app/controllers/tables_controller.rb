@@ -14,6 +14,11 @@ class TablesController < ApplicationController
 
     receipt = table.last_receipt
 
+    if ( receipt.nil? )
+      render json: []
+      return
+    end
+    
     hash = Hash.new
     receipt.items.each do |item|
       if hash.has_key?(item.name)

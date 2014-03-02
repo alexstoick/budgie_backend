@@ -91,9 +91,17 @@ class ReceiptsController < ApplicationController
     table = params[:table]
     item = Item.where(name: name).first_or_create
     receipt = Table.find( table ).last_receipt
-    receipt.items.destroy(item)
+    #receipt.items.destroy(item)
 
-    render json: { "success" => true }
+    receipt.items.each do |current_item|
+      if ( current_item.id == item.id )
+        r = ReceiptEntry.where(item_id: current_item.id, receipt_id: receipt.id).first.destroy
+        render json: { "success" => true }
+        return
+      end
+    end
+
+    render json: { "success" => false }
 
   end
 

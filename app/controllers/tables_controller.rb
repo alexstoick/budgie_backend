@@ -18,11 +18,12 @@ class TablesController < ApplicationController
       render json: []
       return
     end
-    
+
     hash = Hash.new
     receipt.items.each do |item|
       if hash.has_key?(item.name)
-        hash[item.name]["count"] = hash[item.name].count + 1
+        current_hash = hash[item.name] ;
+        current_hash[:count] =  current_hash[:count] + 1
       else
         hash[item.name] = { name: item.name , category: item.category , count: 1 }
       end

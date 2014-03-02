@@ -14,6 +14,22 @@ class TablesController < ApplicationController
 
     receipt = table.last_receipt
 
-    render json: receipt.to_json( only:[ :id] ,include: [ :items ])
+    hash = Hash.new
+    receipt.items.each do |item|
+      if hash.has_key?(item.name)
+        hash[item.name]["count"] = hash[item.name].count + 1
+      else
+        hash[item.name] = { name: item.name , category: item.category , count: 1 }
+      end
+    end
+
+    array = []
+
+    hash.each do |k,v|
+      array << v
+    end
+
+    render json: array
+
   end
 end

@@ -2,6 +2,7 @@ BudgieBackend::Application.routes.draw do
 
   match "receipts/last", to: "receipts#lastReceipt", via: :get
   match "addItem", to: "receipts#addItem", via: :post
+  match "removeItem", to: "receipts#removeItem", via: :post
 
   resources :receipts, only: [:index,:show,:create,:update]
   resources :items, only: [:index,:create]

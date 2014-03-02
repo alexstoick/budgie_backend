@@ -63,14 +63,32 @@ class ReceiptsController < ApplicationController
 
   end
 
-  def addItem 
+  #POST addItem
+  #
+  def addItem
 
-    puts params[:name]
-    puts params[:table]
-    item = Item.where(name: params[:name]).first_or_create
-    receipt = Table.find(params[:table]).last_receipt
+    name = params[:name]
+    table = params[:table]
+    item = Item.where(name: name).first_or_create
+    receipt = Table.find( table ).last_receipt
     receipt.items << item
 
     render json: { "success" => true }
   end
+
+  #POST deleteItem
+  #
+
+  def removeItem
+
+    name = params[:name]
+    table = params[:table]
+    item = Item.where(name: name).first_or_create
+    receipt = Table.find( table ).last_receipt
+    receipt.items.destroy(item)
+
+    render json: { "success" => true }
+
+  end
+
 end

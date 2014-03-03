@@ -25,7 +25,7 @@ class TablesController < ApplicationController
         current_hash = hash[item.name] ;
         current_hash[:count] =  current_hash[:count] + 1
       else
-        hash[item.name] = { name: item.name , category: item.category , count: 1 }
+        hash[item.name] = { name: item.name , category: item.category , count: 1 , price: item.price }
       end
     end
 
@@ -35,7 +35,7 @@ class TablesController < ApplicationController
       array << v
     end
 
-    render json: array
+    render json: {"items" => array }
 
   end
 end

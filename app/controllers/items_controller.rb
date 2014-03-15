@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
   #GET items/
   #
   def index
-    render json: Item.all().to_json( :only => [:name,:price])
+    render json: Item.all().to_json( :only => [:id,:name,:price,:category])
   end
 
   #GET items/:id

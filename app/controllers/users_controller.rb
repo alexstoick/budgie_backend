@@ -11,16 +11,39 @@ class UsersController < ApplicationController
     )
   end
 
-  def add_wishlist
+  def wishlist
+    u = User.includes(:wished_items).find(params[:user_id])
+    render json: u.to_json(
+      only: [],
+      :include => {
+        :wished_items => { only: [:id, :name, :category] }
+      }
+    )
+  end
+
+  def add_wish
 
     item_id = params[:item_id]
-    user_id = params[:id]
+    user_id = params[:user_id]
 
-    wishlist_entry = Wishlist_entry.where(
+    entry = WishlistEntry.where(
       item_id: item_id ,
       user_id: user_id
-      ).first_or_create
+    ).first_or_create
 
-    render json: wishlist_entry
+    render json: entry
+  end
+
+  def remove_wish
+    item_id = params[:item_id]
+    user_id = params[:user_id]
+
+    entry = WishlistEntry.where(
+      item_id: item_id ,
+      user_id: user_id
+    ).first
+    entry.destroy
+
+    render json: entry
   end
 end

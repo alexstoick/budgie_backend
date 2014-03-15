@@ -4,66 +4,13 @@ BudgieBackend::Application.routes.draw do
   match "addItem", to: "receipts#addItem", via: :post
   match "removeItem", to: "receipts#removeItem", via: :post
 
-  resources :receipts, only: [:show,:create,:update]
+  resources :receipts, only: [:show,:update]
   resources :items, only: [:index,:create]
   resources :tables, only: [:create,:show]
   resources :users, only: [:show] do
-    resources :receipts, only: [:index]
+    resources :receipts, only: [:index, :create]
+    match "addWish", to: "users#add_wish", via: :post
+    match "removeWish", to: "users#remove_wish", via: :delete
+    match "wishlist", to: "users#wishlist", via: :get
   end
-
-
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-
-  # You can have the root of your site routed with "root"
-  # root 'welcome#index'
-
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
-
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
-
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
-
-  # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Example resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Example resource route with more complex sub-resources:
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', on: :collection
-  #     end
-  #   end
-  
-  # Example resource route with concerns:
-  #   concern :toggleable do
-  #     post 'toggle'
-  #   end
-  #   resources :posts, concerns: :toggleable
-  #   resources :photos, concerns: :toggleable
-
-  # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
 end

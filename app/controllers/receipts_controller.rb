@@ -1,6 +1,6 @@
 class ReceiptsController < ApplicationController
 
-  #GET receipts/
+  #GET user/:user_id/receipts/
   #
   def index
 
@@ -32,7 +32,7 @@ class ReceiptsController < ApplicationController
   #POST receipts
   #
   def create
-    new_receipt = Receipt.new(store_id: params[:store_id])
+    new_receipt = Receipt.new(store_id: params[:store_id],user_id:params[:user_id])
     new_receipt.save!
     respond_to do |format|
       format.json {render json: new_receipt.to_json( only: [:id])}

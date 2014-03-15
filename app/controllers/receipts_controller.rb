@@ -4,7 +4,7 @@ class ReceiptsController < ApplicationController
   #
   def index
 
-    @r = Receipt.all()
+    @r = User.find(params[:user_id]).receipts
 
     respond_to do |format|
       format.json { render json: @r.to_json( only: [:id,:created_at], methods: [:total,:receipt_day])}

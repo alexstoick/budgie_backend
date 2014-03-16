@@ -140,7 +140,8 @@ class ReceiptsController < ApplicationController
         item_name = split_line[0]
         if ( !(item_name.include?("Items") ) || ! (item_name.include?("Total")) )
           category = ""
-          price = 0.0
+          price = split_line[1]
+          price = price[1..price.length]
           message += item_name + " " + category
           r.items << Item.where(name: item_name, category: category, price: price).first_or_create
         end

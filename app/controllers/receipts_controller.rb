@@ -70,14 +70,14 @@ class ReceiptsController < ApplicationController
     name = params[:name]
     table_id = params[:table]
     item = Item.where(name: name).first_or_create
-    table = Table.find(table_id)
 
-    if ( table.last_receipt.nil? )
-      table.receipts << Receipt.new()
-      receipt = table.last_receipt
-    end
+    # table = Table.find(table_id)
+    # if ( table.last_receipt.nil? )
+      # table.receipts << Receipt.new()
+    # end
 
-    table.last_receipt.items << item
+    receipt = Receipt.new()
+    receipt.items << item
 
     render json: { "success" => true }
   end
@@ -112,4 +112,39 @@ class ReceiptsController < ApplicationController
     render json: { "success" => true}
   end
 
+  def createReceipt
+
+    file = params[:file].open
+    items_started = false
+    finished = false
+    message = ""
+    r = Receipt.new()
+    r.user_id = 1;
+    file.each do |line|
+      if line.include?("£")
+        if ! finished
+          items_started = true
+        end
+      end
+
+      if line.length == 1
+        if items_started
+          finished = true
+          items_started = false
+        end
+      end
+      if items_started
+        # From now on we will keep on getting items entry
+        split_line = line.split(" ")
+        item_name = split_line[0]
+        category = ""
+        price = 0.0
+        message += item_name + " " + category
+        r.items << Item.where(name: item_name, category: category).first_or_create
+      end
+    end
+    r.save!
+    User.first.checkLastReceipt
+    render json: { "message" => r.id }
+  end
 end

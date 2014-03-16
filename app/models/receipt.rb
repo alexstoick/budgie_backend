@@ -10,7 +10,7 @@ class Receipt < ActiveRecord::Base
 
     total = 0.0
     items.each do |item|
-      total = total + item.price
+      total = total + ( item.price || 0 )
     end
     total.round(2).to_s
   end

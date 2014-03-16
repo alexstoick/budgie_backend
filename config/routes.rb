@@ -15,4 +15,6 @@ BudgieBackend::Application.routes.draw do
     match "removeWish", to: "users#remove_wish", via: :delete
     match "wishlist", to: "users#wishlist", via: :get
   end
+
+  match "createReceipt", to: "receipts#createReceipt", via: :post
 end

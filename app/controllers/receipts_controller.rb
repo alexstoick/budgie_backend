@@ -135,12 +135,15 @@ class ReceiptsController < ApplicationController
       end
       if items_started
         # From now on we will keep on getting items entry
+
         split_line = line.split(" ")
         item_name = split_line[0]
-        category = ""
-        price = 0.0
-        message += item_name + " " + category
-        r.items << Item.where(name: item_name, category: category, price: price).first_or_create
+        if ( ! item_name.includes? "Items" || ! item_name.includes? "Total" )
+          category = ""
+          price = 0.0
+          message += item_name + " " + category
+          r.items << Item.where(name: item_name, category: category, price: price).first_or_create
+        end
       end
     end
     r.save!

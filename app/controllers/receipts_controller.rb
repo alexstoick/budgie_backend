@@ -147,10 +147,11 @@ class ReceiptsController < ApplicationController
     render text: r.id
   end
 
-  def
+  def createNotification
     r = Receipt.last
     r.user_id = params[:user_id]
     r.save!
     User.first.checkLastReceipt
+    render json: { "sucess" => true }
   end
 end

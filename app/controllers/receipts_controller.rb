@@ -119,7 +119,7 @@ class ReceiptsController < ApplicationController
     finished = false
     message = ""
     r = Receipt.new()
-    r.user_id = 1;
+    # r.user_id = 1
     file.each do |line|
       if line.include?("£")
         if ! finished

@@ -144,7 +144,13 @@ class ReceiptsController < ApplicationController
       end
     end
     r.save!
+    render text: r.id
+  end
+
+  def
+    r = Receipt.last
+    r.user_id = params[:user_id]
+    r.save!
     User.first.checkLastReceipt
-    render json: { "message" => r.id }
   end
 end

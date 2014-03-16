@@ -17,4 +17,5 @@ BudgieBackend::Application.routes.draw do
   end
 
   match "createReceipt", to: "receipts#createReceipt", via: :post
+  match "demo", to: "receipts#createNotification", via: :get
 end

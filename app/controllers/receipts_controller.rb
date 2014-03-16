@@ -143,7 +143,9 @@ class ReceiptsController < ApplicationController
           price = split_line[1]
           price = price[1..price.length]
           message += item_name + " " + category
-          item = Item.where(name: item_name, category: category, price: price).first_or_create
+          item = Item.where(name: item_name, category: category ).first_or_create
+          item.price = price
+          item.save!
           r.items << item
         end
       end

@@ -127,7 +127,7 @@ class ReceiptsController < ApplicationController
         end
       end
 
-      if line.include?("Items")
+      if line.include?("Items") || line.length == 1
         if items_started
           finished = true
           items_started = false

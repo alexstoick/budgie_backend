@@ -6,7 +6,7 @@ class Device < ActiveRecord::Base
 
     APNS.host = "gateway.sandbox.push.apple.com"
     APNS.port = 2195
-    APNS.pem  = "ck.pem"
+    APNS.pem  = File.join(Rails.root,"ck.pem")
     APNS.pass = "qplazm04"
 
     message = "You didn't buy: " ;

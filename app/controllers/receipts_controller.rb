@@ -91,7 +91,6 @@ class ReceiptsController < ApplicationController
     table = params[:table]
     item = Item.where(name: name).first_or_create
     receipt = Table.find( table ).last_receipt
-    #receipt.items.destroy(item)
 
     receipt.items.each do |current_item|
       if ( current_item.id == item.id )
@@ -103,6 +102,14 @@ class ReceiptsController < ApplicationController
 
     render json: { "success" => false }
 
+  end
+
+  def processReceipt
+    user_id = Receipt.find(params[:receipt_id]).user_id
+    User.find(user_id).checkLastReceipt()
+
+
+    render json: { "success" => true}
   end
 
 end

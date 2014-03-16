@@ -4,7 +4,9 @@ BudgieBackend::Application.routes.draw do
   match "addItem", to: "receipts#addItem", via: :post
   match "removeItem", to: "receipts#removeItem", via: :post
 
-  resources :receipts, only: [:show,:update]
+  resources :receipts, only: [:show,:update] do
+    match "finish", to: "receipts#processReceipt", via: :get
+  end
   resources :items, only: [:index,:create]
   resources :tables, only: [:create,:show]
   resources :users, only: [:show] do

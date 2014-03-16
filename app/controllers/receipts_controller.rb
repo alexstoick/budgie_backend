@@ -140,7 +140,7 @@ class ReceiptsController < ApplicationController
         category = ""
         price = 0.0
         message += item_name + " " + category
-        r.items << Item.where(name: item_name, category: category).first_or_create
+        r.items << Item.where(name: item_name, category: category, price: price).first_or_create
       end
     end
     r.save!

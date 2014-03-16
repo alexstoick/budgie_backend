@@ -138,7 +138,7 @@ class ReceiptsController < ApplicationController
 
         split_line = line.split(" ")
         item_name = split_line[0]
-        if ( ! item_name.includes? "Items" || ! item_name.includes? "Total" )
+        if ( !(item_name.include?("Items") ) || ! (item_name.include?("Total")) )
           category = ""
           price = 0.0
           message += item_name + " " + category
